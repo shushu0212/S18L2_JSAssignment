@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="input">
+      <form>
+        <input type="radio" name="emg" id="red" checked>緊急<br>
+        <input type="radio" name="emg" id="green">不緊急
+      </form>
+      
+      <button onclick="createToDo()">+</button>
+
+      <div id="todolist">
+      </div>
+    </div>
+
+    <script>
+      function createToDo() {
+        //新增待辦事項，注意:要取得input的內容要加上.value
+        var todo = document.createElement("div");
+        var span = document.createElement("span");
+        var input = document.getElementById("input");
+        var todolist = document.getElementById("todolist")
+        if (input.value == "") {
+          input.value = "廢文一篇";
+        }
+        span.innerHTML = input.value;
+        todo.appendChild(span);
+        todolist.appendChild(todo);
+
+        var x = document.getElementById("red");
+        var y = document.getElementById("green");
+        if (x.checked == true) {
+          span.style.color = "red";
+        }else if (y.checked == true) {
+          span.style.color = "green";
+        }
+        
+        input.value = "";
+
+        //新增待辦事項修改按鈕
+        var replaceButton = document.createElement("button");
+        replaceButton.textContent = "R";
+        todo.appendChild(replaceButton);
+
+        replaceButton.onclick = function() {
+          if (input.value =="") {
+            alert("你沒有輸入任何文字");
+            return;
+          }
+          this.parentNode.firstChild.innerHTML = input.value; //取代內容
+          input.value = "";
+        }
+
+        //新增待辦事項刪除按鈕
+        var removeButton = document.createElement("button");
+        removeButton.textContent = "V";
+        todo.appendChild(removeButton);
+
+        //刪除前確認是否已完成
+        removeButton.onclick = function() {
+          var r = confirm("是否確定完成？");
+          if (r == true) {
+            todo.removeChild(removeButton); //移除
+            todo.removeChild(replaceButton);
+            span.style.color = "lightgray";
+          }
+        }
+
+      }
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <form>
+    <input type="text" id="nric">
+    <input type="button" value="驗證" onclick="validate()">
+    <p id="sexResult"></p>
+    <p id="result"></p>
+  </form>
+
+  <script>
+    function validate(){
+      var code = document.getElementById("nric").value;
+      var result = document.getElementById("result");
+      console.log(code);
+      result.innerHTML = "";
+      console.log(result);
+      window.setTimeout(showAlert, 10);
+
+      function showAlert() { 
+        if (code == ""){
+          alert("內容是空的，發出警告！");
+        }else if (!isNaN(code)){               
+          alert("內容不能是數字，發出警告！"); 
+        }else if (code.length != 10){
+          alert("內容的長度不正確，發出警告！");
+        }else {
+          judgeSex();
+          result.innerHTML = "通過驗證";
+        }
+      }
+
+      function judgeSex() {
+        var sex = code.substring(1,2); 
+        console.log(sex);
+        if (sex == 1) {
+          sexResult.innerHTML = "某男";
+        }else if (sex == 2) {
+          sexResult.innerHTML = "某女";
+        }
+      }
+    }
+    
+    
+  </script>
+
+</body>
+</html>

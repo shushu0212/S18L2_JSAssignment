@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  
+</head>
+<body>
+  <span>秒數</span><input type="text" id="sec">
+  <button class="button" onclick="startTimer();">開始關燈倒數</button>
+  <br>
+  <button class="button" onclick="toggleLight();">ON<br>-<br>OFF</button>
+  <div class="div" id="timer">""</div>
+  <img id="image" src="img/on.jpg">
+
+  <script>
+    var state = true;
+    var timeLeft;
+    var image = document.getElementById("image");
+
+    function toggleLight(){
+      state = !state;
+      image.src = state ? "img/on.jpg" :"img/off.jpg";
+      console.log(state);
+
+      if (true == state) {
+        document.getElementById("timer").innerHTML = timeLeft;
+      }
+      else {
+        timeLeft = 0;
+        document.getElementById("timer").innerHTML = timeLeft;
+        clearInterval(id);
+      }     
+    }
+    var id ;
+    function countDownTimer() {     
+      timeLeft = timeLeft - 1;
+      if (timeLeft <= 0) {
+        toggleLight();
+        clearInterval(id);
+      }
+      document.getElementById("timer").innerHTML = timeLeft;
+    }
+
+    function startTimer() {
+      console.log(timeLeft);
+      if (state == false) {
+        alert("目前已關燈！");
+        return;
+      }else if (timeLeft > 0) {
+        alert("倒數中！");
+        return;
+      }
+      else {
+        var sec =  parseInt(document.getElementById("sec").value);
+        console.log(sec);
+        if (isNaN(sec)) {
+          alert("內容非數字，請重新輸入！");
+          document.getElementById("sec").value ="";
+          return;
+        }
+        document.getElementById("timer").innerHTML = sec;
+        timeLeft = sec;
+        id = setInterval(countDownTimer, 1000);
+      }
+      
+    }
+    
+  </script>  
+</body>
+</html>
